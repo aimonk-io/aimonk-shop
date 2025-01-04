@@ -8,17 +8,9 @@ import useMediaQuery from "@/libs/hooks/use-media-query";
 import useScroll from "@/libs/hooks/use-scroll";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import AddToCartIcon from "@/components/addToCard/addTocart";
+import { NavBarProps } from "@/libs/Types/Navbar/Index";
 
-// Define the type for a navigation link
-interface NavLink {
-  href: string;
-  label: string;
-  submenu?: NavLink[];
-}
 
-interface NavBarProps {
-  navLinks: NavLink[];
-}
 
 export default function NavBar({ navLinks }: NavBarProps) {
   const scrolled = useScroll(50);

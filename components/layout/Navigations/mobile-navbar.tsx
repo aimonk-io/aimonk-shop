@@ -1,18 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { MobileMenuProps } from "@/libs/Types/MobileNavbar/Index";
 
-interface MenuItem {
-  label: string;
-  href?: string;
-  subMenu?: { label: string; href: string }[];
-}
-
-interface MobileMenuProps {
-  menuItems: MenuItem[];
-  onClose: () => void;
-}
-
-const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, onClose }) => {
+const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems }) => {
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState<number | null>(null);
 
   const toggleSubMenu = (index: number) => {
@@ -33,8 +23,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, onClose }) => {
                   openSubMenuIndex === index
                     ? "auto"
                     : item.subMenu
-                    ? "0px"
-                    : "auto",
+                      ? "0px"
+                      : "auto",
               }}
             >
               <div className="h-max">
@@ -55,9 +45,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, onClose }) => {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className={`lucide lucide-chevron-down h-5 w-5 text-gray-500 transition-all dark:text-white/50 ${
-                          openSubMenuIndex === index ? "rotate-180" : ""
-                        }`}
+                        className={`lucide lucide-chevron-down h-5 w-5 text-gray-500 transition-all dark:text-white/50 ${openSubMenuIndex === index ? "rotate-180" : ""
+                          }`}
                       >
                         <path d="m6 9 6 6 6-6"></path>
                       </svg>
@@ -87,7 +76,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, onClose }) => {
                   <Link
                     href={item.href!}
                     passHref
-                    className="flex w-full justify-between text-black" 
+                    className="flex w-full justify-between text-black"
                   >
                     <p className="font-semibold">{item.label}</p>
                   </Link>
