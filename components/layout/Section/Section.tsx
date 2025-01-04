@@ -15,7 +15,7 @@ const ProductGrid = ({ cards } : SectionProps) => {
           mainImage={card.mainImage}
           hoverImage={card.hoverImage}
           sizes={card.sizes}
-          link={card.link}
+          slug={card.slug}
         />
       ))}
     </div>

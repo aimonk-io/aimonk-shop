@@ -6,7 +6,7 @@ export const ProductCardDate = [
         mainImage:"/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
         hoverImage:"/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        link: "/product/1"
+        slug: "/1"
     },
     {
         name: "&Kin Boucle Check Nolen Coat",    
@@ -15,7 +15,7 @@ export const ProductCardDate = [
         mainImage:"/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
         hoverImage:"/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        link: "/product/2"
+        slug: "/2"
 
     },
     {
@@ -25,7 +25,7 @@ export const ProductCardDate = [
         mainImage:"/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
         hoverImage:"/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        link: "/product/3"
+        slug: "/3"
 
     },
     {
@@ -35,7 +35,7 @@ export const ProductCardDate = [
         mainImage:"/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
         hoverImage:"/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        link: "/product/4"
+        slug: "/4"
     },
     {
         name: "&Kin Boucle Check Nolen Coat",    
@@ -44,7 +44,7 @@ export const ProductCardDate = [
         mainImage:"/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
         hoverImage:"/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        link: "/product/5"
+        slug: "/5"
     },
     {
         name: "&Kin Boucle Check Nolen Coat",    
@@ -53,7 +53,7 @@ export const ProductCardDate = [
         mainImage:"/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
         hoverImage:"/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        link: "/product/6"
+        slug: "/6"
     },
     {
         name: "&Kin Boucle Check Nolen Coat",    
@@ -62,7 +62,7 @@ export const ProductCardDate = [
         mainImage:"/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
         hoverImage:"/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        link: "/product/7"
+        slug: "/7"
     }
  
 ]
