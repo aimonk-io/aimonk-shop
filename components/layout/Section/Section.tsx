@@ -1,61 +1,25 @@
+"use client";
 import React from 'react';
-import { Box, Card, Inset, Text } from '@radix-ui/themes';
-import Image from 'next/image';
+import ProductCard from '../Cards/ProductCard/ProductCard';
+import { SectionProps } from '@/libs/Types/Sections/Index';
 
-interface CardProps {
-  imageSrc: string;
-  imageAlt: string;
-  description: string;
-}
-
-interface SectionProps {
-  cols: number;
-  cards: CardProps[];
-}
-
-const CardComponent: React.FC<CardProps> = ({ imageSrc, imageAlt, description }) => {
+const ProductGrid = ({ cards } : SectionProps) => {  
   return (
-    <Box className="max-w-[340px] px-3 py-2">
-      <Card size="2">
-        <Inset clip="padding-box" side="top" pb="current">
-
-            <Image src={imageSrc} alt={imageAlt} width={'300'} height={'400'}
-              style={{
-              display: 'block',
-              objectFit: 'cover',
-              backgroundColor: 'var(--gray-5)',
-            }}/>
-        </Inset>
-        <Text as="p" size="3">  
-            {description}
-        </Text>
-      </Card>
-    </Box>
+    <div className={`grid gap-3 p-6 grid-cols-1 sm:grid-cols-4`}>
+      {cards.map((card, index) => (
+        <ProductCard
+          key={index}
+          name={card.name}
+          brand={card.brand}
+          price={card.price}
+          mainImage={card.mainImage}
+          hoverImage={card.hoverImage}
+          sizes={card.sizes}
+          link={card.link}
+        />
+      ))}
+    </div>
   );
 };
 
-const Section: React.FC<SectionProps> = ({ cols, cards }) => {
-  return (
-<div
-  className="flex flex-wrap"
-  style={{ gap: "1rem" }}
->
-  {cards.map((card, index) => (
-    <CardComponent
-      key={index}
-      imageSrc={card.imageSrc}
-      imageAlt={card.imageAlt}
-      description={card.description}
-      style={{
-        flex: `1 1 calc(100% / ${cols} - 1rem)`, // Calculate each card's width
-        maxWidth: `calc(100% / ${cols} - 1rem)`, // Ensure max width aligns
-      }}
-    />
-  ))}
-</div>
-
-  );
-};
-
-export default Section;
-
+export default ProductGrid;

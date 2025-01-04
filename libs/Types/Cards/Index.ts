@@ -1,0 +1,1 @@
+export * from '@/libs/Types/Cards/ProductCardProps/ProductCardProps';

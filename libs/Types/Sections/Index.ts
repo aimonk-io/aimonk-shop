@@ -1,0 +1,1 @@
+export * from '@/libs/Types/Sections/SectionProps/SectionProps';
