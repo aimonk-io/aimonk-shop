@@ -2,7 +2,8 @@
 
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import useMediaQuery from "@/lib/hooks/use-media-query";
+import useMediaQuery from "@/libs/hooks/use-media-query";
+
 
 export default function Popover({
   children,
