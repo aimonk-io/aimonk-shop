@@ -13,6 +13,7 @@ export const timeAgo = (timestamp: Date, timeOnly?: boolean): string => {
   }`;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function fetcher<JSON = any>(
   input: RequestInfo,
   init?: RequestInit,
@@ -47,7 +48,7 @@ export function nFormatter(num: number, digits?: number) {
     { value: 1e18, symbol: "E" },
   ];
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  var item = lookup
+  const item = lookup
     .slice()
     .reverse()
     .find(function (item) {
@@ -67,3 +68,4 @@ export const truncate = (str: string, length: number) => {
   if (!str || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
+
