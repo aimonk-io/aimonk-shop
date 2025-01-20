@@ -91,12 +91,12 @@ export default function ContactForm() {
                 />
               </div>
               <div className="flex flex-col md:flex-row w-full md:w-1/2">
-                <label className="md:text-3xl text-2xl font-normal text-left md:text-center leading-tight w-full md:w-[50%] mb-2">and I work at</label>
+                <label className="md:text-3xl text-2xl font-normal text-left md:text-center leading-tight w-full md:w-[50%] mb-2">and my phone</label>
                 <FormInput
-                  name="company"
-                  value={formData.company}
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleChange}
-                  placeholder="Company name*"
+                  placeholder="99000 00000*"
                   required
                   className="w-full"
                 />
@@ -116,7 +116,7 @@ export default function ContactForm() {
             </div>
 
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-              <label className="md:text-3xl text-2xl font-normal leading-tight">and I&apos;m looking for a partner to help me with</label>
+              <label className="md:text-3xl text-2xl font-normal leading-tight">and I&apos;m seeking assistance with</label>
               <FormInput
                 name="goal"
                 value={formData.goal}
@@ -141,7 +141,7 @@ export default function ContactForm() {
             </div>
 
             <div className="flex flex-col md:flex-row items-start gap-4">
-              <label className="md:text-3xl text-2xl font-normal leading-tight">Additionally, I&apos;m sharing more here:</label>
+              <label className="md:text-3xl text-2xl font-normal leading-tight">Additionally, I want to know about:</label>
               <FormTextarea
                 name="details"
                 value={formData.details}

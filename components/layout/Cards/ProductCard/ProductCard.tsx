@@ -21,8 +21,8 @@ const ProductCard = ({ name, brand, price, mainImage, hoverImage, sizes, slug }:
                     <Image
                         src={isImageHovered ? hoverImage : mainImage}
                         alt={name}
-                        width={341}
-                        height={341}
+                        width={382}
+                        height={382}
                         className="transition-all duration-300"
                     />
                 </div>

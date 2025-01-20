@@ -1,0 +1,1 @@
+export * from "@/libs/Types/CollapsibleSection/CollapsibleSectionProps/CollapsibleSectionProps"

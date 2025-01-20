@@ -7,11 +7,11 @@ const AboutPage = () => {
                 <h1 className="text-2xl text-center font-['Georgia'] font-300 mb-4 py-6">About</h1>
                 <div className="text-[.75rem] tracking-[.06em] leading-[1.4em] mb-[1.125rem]">
                     <p>
-                        Established in 2011 in New York City, Kith is a lifestyle brand and progressive retail concept. Founded by Creative Director Ronnie Fieg, Kith offers seasonal collections of men’s, women’s and children’s apparel, accessories and footwear through a distinct lens of personal storytelling, effortless styling, and uncompromising detail to fabrication and design. Kith embodies a multi-faceted lifestyle, working closely alongside collaborators around the world who are leaders in their respective product categories.
+                        Established in 2011 in Gangtok, Sikkim Kokkivo is a lifestyle brand and progressive retail concept. Founded by Creative Director Ronnie Fieg, Kokkivo offers seasonal collections of men’s, women’s and children’s apparel, accessories and footwear through a distinct lens of personal storytelling, effortless styling, and uncompromising detail to fabrication and design. Kokkivo embodies a multi-faceted lifestyle, working closely alongside collaborators around the world who are leaders in their respective product categories.
                     </p>
                     <br />
                     <p>
-                        Kith operates 13 standalone boutiques across the globe, and has shop-in-shops in Bergdorf Goodman, Hirshleifers and Selfridges. Kith Treats, conceived from Kith’s founder Ronnie Fieg’s childhood love for cereal, operates in nine locations and has one standalone space. Kith’s food and beverage arm expanded in 2022, and together with Major Food Group, Sadelle’s at Kith opened in Kith Paris and later, Kith Miami Design District and Kith Toronto. In 2023, Kith opened the first Kith Women flagship in New York City, and appointed Kith Women Creative Director Daniëlle Cathari.
+                        Kokkivo operates 13 standalone boutiques across the globe, and has shop-in-shops in Bergdorf Goodman, Hirshleifers and Selfridges. Kokkivo Treats, conceived from Kokkivo’s founder Ronnie Fieg’s childhood love for cereal, operates in nine locations and has one standalone space. Kokkivo’s food and beverage arm expanded in 2022, and together with Major Food Group, Sadelle’s at Kokkivo opened in Kokkivo Paris and later, Kokkivo Miami Design District and Kokkivo Toronto. In 2023, Kokkivo opened the first Kokkivo Women flagship in New York City, and appointed Kokkivo Women Creative Director Daniëlle Cathari.
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+
 import Link from "next/link";
 import MobileMenu from "./mobile-navbar";
 import useMediaQuery from "@/libs/hooks/use-media-query";
 import useScroll from "@/libs/hooks/use-scroll";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import AddToCartIcon from "@/components/addToCard/addTocart";
 import { NavBarProps } from "@/libs/Types/Navbar/Index";
+import Cart from "../Cart/Cart";
 
 
 
@@ -29,11 +29,6 @@ export default function NavBar({ navLinks }: NavBarProps) {
       setSearchQuery(""); // Clear the search input when closing
     }
   };
-  
-  const handleCartClick = () =>{
-    console.log("cart was clicked");
-  }
-
   return (
     <>
       <div
@@ -41,13 +36,16 @@ export default function NavBar({ navLinks }: NavBarProps) {
       >
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between w-full px-2.5 lg:px-20 relative">
           <Link href="/" className="flex items-center font-display text-2xl">
-            <Image
+            {/* <Image
               src="/aimonk-120x-logo.svg"
-              alt="Aimonk.io logo"
+              alt="Kokkivo logo"
               width="100"
               height="60"
               className="mr-2 rounded-sm"
-            />
+            /> */}
+            <div className="bg-black p-[0.1rem]">
+              <h1 className="text-white font-extrabold">Kokkivo</h1>
+            </div>
           </Link>
           {isMobile || isTablet ? (
             <button
@@ -107,7 +105,7 @@ export default function NavBar({ navLinks }: NavBarProps) {
                       <li key={link.href}>
                         <Link
                           href={link.href}
-                          className="block rounded-md px-3 py-1.5 text-sm text-gray-900/60 hover:text-gray-900/80 transition-colors ease-out cursor-default"
+                          className="block rounded-md px-3 py-1.5 text-sm text-gray-900/60 hover:text-gray-900/80 transition-colors ease-out cursor-pointer"
                         >
                           {link.label}
                         </Link>
@@ -139,7 +137,8 @@ export default function NavBar({ navLinks }: NavBarProps) {
                     <MagnifyingGlassIcon style={{ width: "25px", height: "25px" }} />
                   </button>
                 )}
-                <AddToCartIcon counter={1} onClick={handleCartClick}/>
+                <Cart/>
+                {/* <AddToCartIcon counter={1} onClick={handleCartClick}/> */}
               </div>
             </>
           )}

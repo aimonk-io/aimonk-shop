@@ -1,14 +1,30 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { MobileMenuProps } from "@/libs/Types/MobileNavbar/Index";
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems }) => {
+interface MenuItem {
+  label: string;
+  href?: string;
+  subMenu?: { label: string; href: string }[];
+}
+
+interface MobileMenuProps {
+  menuItems: MenuItem[];
+  onClose?: () => void;
+}
+
+const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, onClose }) => {
   const [openSubMenuIndex, setOpenSubMenuIndex] = useState<number | null>(null);
 
   const toggleSubMenu = (index: number) => {
     setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
   };
 
+  const handleLinkClick = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
+  
   return (
     <div
       className={`fixed inset-0 z-20 w-full bg-white px-5 py-16 lg:hidden transition-transform transform ${"translate-x-0"}`}
@@ -23,8 +39,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems }) => {
                   openSubMenuIndex === index
                     ? "auto"
                     : item.subMenu
-                      ? "0px"
-                      : "auto",
+                    ? "0px"
+                    : "auto",
               }}
             >
               <div className="h-max">
@@ -45,8 +61,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems }) => {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className={`lucide lucide-chevron-down h-5 w-5 text-gray-500 transition-all dark:text-white/50 ${openSubMenuIndex === index ? "rotate-180" : ""
-                          }`}
+                        className={`lucide lucide-chevron-down h-5 w-5 text-gray-500 transition-all dark:text-white/50 ${
+                          openSubMenuIndex === index ? "rotate-180" : ""
+                        }`}
                       >
                         <path d="m6 9 6 6 6-6"></path>
                       </svg>
@@ -56,7 +73,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems }) => {
                         <Link
                           key={subIndex}
                           href={subItem.href}
-                          passHref
+                          onClick={handleLinkClick}
                           className="flex w-full space-x-2 text-gray-600"
                         >
                           <svg
@@ -75,8 +92,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems }) => {
                 ) : (
                   <Link
                     href={item.href!}
-                    passHref
-                    className="flex w-full justify-between text-black"
+                    onClick={handleLinkClick}
+                    className="flex w-full justify-between text-black" 
                   >
                     <p className="font-semibold">{item.label}</p>
                   </Link>

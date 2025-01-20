@@ -8,7 +8,7 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({ className = '', ...p
   return (
     <textarea
       {...props}
-      className={`bg-transparent border-b border-black/20 md:px-2 py-1 placeholder:text-left md:placeholder:text-center focus:outline-none focus:border-white/40 transition-colors resize-none ${className}`}
+      className={`bg-transparent border-b border-black/20 md:px-2 py-1 placeholder:text-left md:placeholder:text-center focus:outline-none focus:border-blue-500 transition-colors resize-none ${className}`}
       rows={1}
     />
   );

@@ -11,8 +11,8 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
     colors: ['Fin'],
     sizes: ['44', '46', '48', '50', '52', '54'],
     description: 'The &Kin Tweed Julius Blazer is crafted of Italian boucle tweed...',
-    mainImage: '/images/blazer.jpg',
-    hoverImage: '/images/blazer-hover.jpg',
+    mainImage: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
+    hoverImage: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
     maxUnitsPerCustomer: 2,
     completeLook: [
       {
@@ -20,15 +20,16 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
         name: '&Kin Speckled Boucle Walker Turtleneck',
         color: 'Black',
         price: 25900,
-        image: '/images/turtleneck.jpg',
+        image: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
         sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        
       },
       {
         id: '3',
         name: '&Kin Tweed Kylan Pleated Trouser',
         color: 'Fin',
         price: 35200,
-        image: '/images/trouser.jpg',
+        image: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
         sizes: ['44', '46', '48', '50', '52', '54'],
       },
     ],
