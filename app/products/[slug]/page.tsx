@@ -8,8 +8,8 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
     name: '&Kin Tweed Julius Blazer',
     brand: '&Kin',
     price: 61900,
-    colors: ['Fin'],
-    sizes: ['44', '46', '48', '50', '52', '54'],
+    colors: ['Black', 'White', 'Blue'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     description: 'The &Kin Tweed Julius Blazer is crafted of Italian boucle tweed...',
     mainImage: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
     hoverImage: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
@@ -18,7 +18,7 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
       {
         id: '2',
         name: '&Kin Speckled Boucle Walker Turtleneck',
-        color: 'Black',
+        color: ['Black', 'White', 'Blue'],
         price: 25900,
         image: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
         sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
@@ -27,10 +27,10 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
       {
         id: '3',
         name: '&Kin Tweed Kylan Pleated Trouser',
-        color: 'Fin',
+        color: ['Fin', 'Black', 'Blue'],
         price: 35200,
         image: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
-        sizes: ['44', '46', '48', '50', '52', '54'],
+        sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
       },
     ],
   };
@@ -38,5 +38,6 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const product = await getProduct(params.slug);
+  console.log(product);
   return <ProductPage product={product} />;
 }

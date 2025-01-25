@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-'use client';
+
+"use client";
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,22 +9,30 @@ import SizeGuide from '../SizeGuide/SizeGuide';
 import { useCart } from '@/contexts/CartContext';
 import { ShopMoreProductCardDate } from '@/Data/Cards';
 import { ProductCardProps } from '@/libs/Types/Cards/Index';
-import CollapsibleSection from '../CollapsibleSection/CollapsibleSection';
+import CollapsibleSection from '../../ui/CollapsibleSection/CollapsibleSection';
 import RecommendationCard from '../Cards/RecommendationCard/RecommendationCard';
 
 
+
 const ProductPage = ({ product }: { product: ProductCardProps }) => {
-  const { addToCart, state } = useCart();
+  const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '');
 
   const handleAddToCart = () => {
-    if (selectedSize) {
-      addToCart(product, selectedSize, selectedColor);
-      // Optionally open the cart after adding
-      // toggleCart();
-    }
+    const productToAdd = {
+      id: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.mainImage,
+      size: selectedSize,
+      color: selectedColor
+    };
+    console.log(productToAdd)
+    addToCart(productToAdd);
   };
+
+  console.log(product)
 
   return (
     <>
@@ -34,7 +42,7 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
           <ol className="flex items-center space-x-2">
             <li><Link href="/" className="text-gray-500 hover:text-gray-700">Home</Link></li>
             <li className="text-gray-500">&rarr;</li>
-            <li><Link href="/mens" className="text-gray-500 hover:text-gray-700">Mens</Link></li>
+            <li><Link href="/mens" className="text-gray-500 hover:text-gray-700">{product.brand}</Link></li>
           </ol>
         </nav>
         <div className="flex flex-col lg:flex-row gap-8">
@@ -42,7 +50,6 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
           {/* Product Image */}
           <div className="lg:w-[60%]">
             <div className="aspect-w-1 aspect-h-1 bg-gray-100 overflow-hidden">
-
               <Image
                 src={product.mainImage}
                 alt={product.name}
@@ -51,6 +58,15 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
                 className="object-cover object-center"
                 priority
               />
+              {product.hoverImage && (
+                <Image
+                  src={product.hoverImage}
+                  alt={`${product.name} hover`}
+                  width={897}
+                  height={948}
+                  className="hidden"
+                />
+              )}
             </div>
           </div>
 
@@ -58,49 +74,53 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
           <div className="lg:w-[40%]">
             <h1 className="text-2xl font-semibold text-gray-900">{product.name}</h1>
             <p className="mt-2 text-lg text-gray-500">{product.brand}</p>
-            <p className="mt-2 text-2xl text-gray-900">Rs. {product.price.toLocaleString()}</p>
+            <p className="mt-2 text-2xl text-gray-900">Rs. {product.price.toLocaleString()}.00</p>
+            
 
-            {/* Color Selection */}
-            {product.colors && product.colors.length > 0 && (
-              <div className="mt-6">
-                <h3 className="text-sm font-medium text-gray-900">Color</h3>
-                <div className="mt-2 flex space-x-2">
-                  {product.colors.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => setSelectedColor(color)}
-                      className={`w-8 h-8 rounded-full border-2 ${selectedColor === color ? 'border-black' : 'border-gray-300'
-                        }`}
-                      style={{ backgroundColor: color.toLowerCase() }}
-                      aria-label={`Select ${color} color`}
-                    />
-                  ))}
+            {/* Color Selection (if colors exist) */}
+            <div className='border-b border-gray-500'>
+              {product.colors && product.colors.length > 0 && (
+                <div className="mt-6">
+                  {/* <h3 className="mb-4 text-sm font-bold text-gray-900">Color</h3> */}
+                  
+                   <div className='mb-4 border-b border-gray-500'></div>
+
+                  <div className="mb-4 flex space-x-2">
+                    {product.colors.map((color) => (
+                      <button
+                        key={color}
+                        onClick={() => setSelectedColor(color)}
+                        className={`w-8 h-8 rounded-full border-2 ${selectedColor === color ? 'border-black' : 'border-gray-300'
+                          }`}
+                        style={{ backgroundColor: color.toLowerCase() }}
+                        aria-label={`Select ${color} color`}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Size Selection */}
-            <div className="mt-6">
-              <h3 className="text-sm font-medium text-gray-900">Size</h3>
-              <div className="mt-2 grid grid-cols-6 gap-2">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`px-4 py-2 text-sm border rounded-md ${selectedSize === size
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-300 text-gray-700 hover:border-gray-400'
-                      }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            <div className='border-b border-gray-500'>
+              <div className="my-6 flex flex-row justify-between items-center">
+                <h3 className="text-sm font-bold text-gray-900">Size</h3>
+                <div className="flex justify-end space-x-4">
+                  {product.sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`text-sm rounded-md hover:underline ${selectedSize === size ? 'font-bold underline' : 'font-normal'}`}>
+                      {size}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* Add to Cart */}
             <button
-              className="mt-8 w-full bg-black text-white py-3 px-4 rounded-md hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              className="mt-8 w-full bg-black text-white rounded-sm py-3 px-4 hover:bg-white hover:text-black disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
               disabled={!selectedSize}
               onClick={handleAddToCart}
             >
@@ -161,7 +181,7 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
               </CollapsibleSection>
 
               <CollapsibleSection title="Size Info">
-                <SizeGuide productName={product.name} modelSize={'Model is wearing a size extra large'} productImage={product.mainImage}/>
+                <SizeGuide productName={product.name} modelSize={'Model is wearing a size extra large'} productImage={product.mainImage} />
               </CollapsibleSection>
 
 

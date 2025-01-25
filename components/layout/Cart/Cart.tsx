@@ -10,38 +10,33 @@ interface CartItem {
   image: string;
 }
 
-const product: CartItem = {
-  id: 1,
-  name: 'Kith for the New York Rangers Skewed Delk Hoodie',
-  price: 20100,
-  quantity: 1,
-  image: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
-};
+
 
 const Cart: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  
   const handleToggleCart = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleAddToCart = (item: CartItem) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
-      if (existingItem) {
-        // Increment quantity if item already exists
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
-      } else {
-        // Add new item
-        return [...prevItems, item];
-      }
-    });
-  };
+  // const handleAddToCart = (item: CartItem) => {
+  //   setCartItems((prevItems) => {
+  //     const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
+  //     if (existingItem) {
+  //       // Increment quantity if item already exists
+  //       return prevItems.map((cartItem) =>
+  //         cartItem.id === item.id
+  //           ? { ...cartItem, quantity: cartItem.quantity + 1 }
+  //           : cartItem
+  //       );
+  //     } else {
+  //       // Add new item
+  //       return [...prevItems, item];
+  //     }
+  //   });
+  // };
 
   const handleRemoveItem = (id: number) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -81,16 +76,6 @@ const Cart: React.FC = () => {
       >
         {isOpen ? <FaTimes size={20} /> : <FaShoppingCart size={20} />}
       </button>
-
-      {/* Add to Cart Button handled here */}
-      <div className="p-4">
-        <button
-          className="hidden bg-black text-white px-6 py-2 rounded-md"
-          onClick={() => handleAddToCart(product)}
-        >
-          Add to Cart
-        </button>
-      </div>
 
       {/* Slide-in Cart */}
       <div

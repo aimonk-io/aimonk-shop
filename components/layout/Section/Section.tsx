@@ -9,13 +9,13 @@ const ProductGrid = ({ cards } : SectionProps) => {
       {cards.map((card, index) => (
         <ProductCard
           key={index}
+          slug={card.slug}
           name={card.name}
           brand={card.brand}
           price={card.price}
           mainImage={card.mainImage}
           hoverImage={card.hoverImage}
           sizes={card.sizes}
-          slug={card.slug}
         />
       ))}
     </div>

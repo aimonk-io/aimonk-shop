@@ -1,15 +1,19 @@
 import { CompleteLookItem } from "../Index";
 
-export interface ProductCardProps {
-  slug: string; // map the _id coming from the database
+export interface ProductProps {
+  slug: string;
   name: string;
   brand: string;
+  category: string[];
   price: number;
-  mainImage: string;
-  hoverImage: string;
   sizes: string[];
   colors?: string[];
+  mainImage: string;
+  hoverImage: string;
+  imaages: string[];
+  discount?: number;
   description?: string;
+  
   maxUnitsPerCustomer?: number;
   completeLook?: CompleteLookItem[];
 }

@@ -1,179 +1,208 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from 'react';
-import { Button } from '../Button/Button';
-import { motion } from 'framer-motion';
-import { FormInput } from './FormInput';
-import { FormTextarea } from './FormTextarea';
-
-interface FormData {
-  source: string | number | readonly string[] | undefined;
-  company: string | number | readonly string[] | undefined;
-  name: string;
-  email: string;
-  goal: string;
-  phone: string | number | readonly string[] | undefined;
-  details: string;
-  privacyPolicy: boolean;
-}
+import React from "react";
+import { Button } from "@/components/ui/Button/Button";
+import { motion } from "framer-motion";
+import { FormInput } from "../../ui/FormInput/FormInput";
+import { FormTextarea } from "../../ui/FormTextarea/FormTextarea";
+import { toast } from "@/libs/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState<FormData>({
-    source: '',
-    company: '',
-    name: '',
-    email: '',
-    goal: '',
-    phone: '',
-    details: '',
-    privacyPolicy: false,
+  // Define validation schema
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .required("Name is required")
+      .min(3, "Name must be at least 3 characters")
+      .max(50, "Name must not exceed 50 characters"),
+    phone: Yup.string()
+      .required("Phone number is required")
+      .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits"),
+    email: Yup.string()
+      .required("Email is required")
+      .email("Email is invalid"),
+    details: Yup.string()
+      .required("Details are required")
+      .min(10, "Details must be at least 10 characters"),
+    privacyPolicy: Yup.boolean()
+      .oneOf([true], "You must agree with the Privacy Policy"),
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
+  // Use React Hook Form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      details: "",
+      privacyPolicy: false,
+    },
+  });
+
+  // Handle form submission
+  const onSubmit = async (data: any) => {
     try {
-      const response = await fetch('/api/email/sendEmail', {
-        method: 'POST',
+      const response = await fetch("/api/contact/route", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        alert('Email sent successfully!');
-      } else {
-        alert('Failed to send email. Please try again later.');
+      if (!response.ok) {
+        throw new Error("Failed to send message");
       }
+
+      toast({
+        title: "Success!",
+        description: "Your message has been sent successfully.",
+      });
+
+      reset(); // Clear form
     } catch (error) {
-      console.error('Error sending email:', error);
-      alert('An error occurred. Please try again later.');
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+        duration: 5000, // Dismiss after 5 seconds
+      });
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, type, value, checked } = e.target as HTMLInputElement;
-    console.log(e.target);
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-
   return (
     <div className="w-full min-h-screen bg-white text-black py-[8rem]">
-      <div className="w-full lg:h-4/5 md:h-2/4 bg-white text-black py-[6rem] sm:py-[8rem] md:p-8 pl-0 flex flex-col">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+      <div className="w-full lg:h-4/5 md:h-2/4 bg-white text-black py-[1rem] sm:py-[4rem] md:p-8 pl-0 flex flex-col">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-normal mb-2">
-            LET&apos;S <span className="bg-gradient-to-r from-[#9CA] to-[#E9A] text-transparent bg-clip-text">CONNECT</span>
+            <span className="bg-gradient-to-r from-[#9CA] to-[#E9A] text-transparent bg-clip-text">
+              CONTACT
+            </span>{" "}
+            US
           </h1>
-          <p className="text-gray-400 mb-6 mt-6">Contact us by email or fill out the form below</p>
+          <p className="text-gray-400 mb-6 mt-6">
+            Contact us by email or fill out the form below
+          </p>
         </motion.div>
       </div>
 
-      <div className="w-full md:p-10 mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }}>
+      <div className="w-full md:p-10 flex justify-center items-center">
+        <motion.div
+          className="w-[90%] md:w-[80%] lg:w-[60%]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+        >
           <p className="text-sm text-gray-400 mb-6 mt-6">FILL THE FORM BELOW:</p>
-          <form onSubmit={handleSubmit} className="h-auto space-y-8">
-
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex flex-col md:flex-row w-full md:w-1/2">
-                <label className="md:text-3xl text-2xl font-normal leading-tight w-full md:w-[50%] mb-2">Hi! My name is</label>
-                <FormInput
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name*"
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col md:flex-row w-full md:w-1/2">
-                <label className="md:text-3xl text-2xl font-normal text-left md:text-center leading-tight w-full md:w-[50%] mb-2">and my phone</label>
-                <FormInput
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="99000 00000*"
-                  required
-                  className="w-full"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-              <label className="md:text-3xl text-2xl font-normal leading-tight">I heard about you from</label>
+          <form onSubmit={handleSubmit(onSubmit)} className="h-auto space-y-8">
+            {/* Name */}
+            <div className="flex flex-col w-full space-y-2">
+              <label className="md:text-3xl text-2xl font-normal leading-tight">
+                Hi! My name is
+              </label>
               <FormInput
-                name="source"
-                value={formData.source}
-                onChange={handleChange}
-                placeholder="Source*"
-                required
-                className="w-full md:w-auto flex-grow"
+                {...register("name")}
+                placeholder="Enter your name*"
+                className="w-full"
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name.message}</p>
+              )}
             </div>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-              <label className="md:text-3xl text-2xl font-normal leading-tight">and I&apos;m seeking assistance with</label>
+            {/* Phone */}
+            <div className="flex flex-col w-full space-y-2">
+              <label className="md:text-3xl text-2xl font-normal leading-tight">
+              my phone
+              </label>
               <FormInput
-                name="goal"
-                value={formData.goal}
-                onChange={handleChange}
-                placeholder="Goal*"
-                required
-                className="w-full md:w-auto flex-grow"
+                {...register("phone")}
+                placeholder="99000 00000*"
+                className="w-full"
               />
+              {errors.phone && (
+                <p className="text-red-500 text-sm">{errors.phone.message}</p>
+              )}
             </div>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-              <label className="md:text-3xl text-2xl font-normal leading-tight">You can reach me at</label>
+            {/* Email */}
+            <div className="flex flex-col w-full space-y-2">
+              <label className="md:text-3xl text-2xl font-normal leading-tight">
+                and my email
+              </label>
               <FormInput
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email")}
                 placeholder="example@email.com*"
-                required
-                className="w-full md:w-auto flex-grow"
+                className="w-full"
               />
-              <span className="md:text-3xl text-2xl hidden md:block ml-2">to start the conversation.</span>
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
             </div>
 
-            <div className="flex flex-col md:flex-row items-start gap-4">
-              <label className="md:text-3xl text-2xl font-normal leading-tight">Additionally, I want to know about:</label>
+            {/* Details */}
+            <div className="flex flex-col w-full space-y-2">
+              <label className="md:text-3xl text-2xl font-normal leading-tight mb-5">
+                Additionally, I want to know about:
+              </label>
               <FormTextarea
-                name="details"
-                value={formData.details}
-                onChange={handleChange}
+                {...register("details")}
                 placeholder="Product details*"
-                className="w-full md:w-auto flex-grow"
+                className="w-full lg:w-auto flex-grow "
               />
+              {errors.details && (
+                <p className="text-red-500 text-sm">{errors.details.message}</p>
+              )}
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-8">
+            {/* Privacy Policy */}
+            {/* Privacy Policy */}
+            <div className="flex flex-col lg:flex-row justify-between items-start md:items-center pt-8">
               <div className="flex items-center space-x-2">
                 <input
                   type="checkbox"
-                  name="privacyPolicy"
-                  checked={formData.privacyPolicy}
-                  onChange={handleChange}
+                  {...register("privacyPolicy")}
                   className="w-4 h-4 rounded border-gray-700"
-                  required
                 />
                 <label className="text-sm">
-                  I agree with the{' '}
-                  <a href="#" className="underline">Privacy Policy</a>
+                  I agree with the{" "}
+                  <a href="#" className="underline">
+                    Privacy Policy
+                  </a>
                 </label>
               </div>
 
             </div>
-            <Button text="SEND INQUIRY" type="submit" />
+            {errors.privacyPolicy && (
+              <p className="lg:text-left text-red-500 text-sm">
+                {errors.privacyPolicy.message}
+              </p>
+            )}
 
-
+            {/* Submit Button */}
+            <div className="flex justify-between items-start md:items-center pt-8">
+              <Button text="SEND INQUIRY" type="submit" variant="black" />
+            </div>
           </form>
         </motion.div>
       </div>
     </div>
+
   );
 }
+
+

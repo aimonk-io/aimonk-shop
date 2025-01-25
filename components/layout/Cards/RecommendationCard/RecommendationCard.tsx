@@ -24,9 +24,19 @@ const RecommendationCard = ({ item }: { item: CompleteLookItem }) => {
             </p>
             <div className="mt-2 flex space-x-2">
             {item.sizes.map((size) => (
-                <span key={size} className="text-xs text-gray-500">
+                <button
+                // Add a add to cart function here on each size label. 
+                key={size}
+                className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors cursor-pointer hover:underline" 
+                onClick={(e) => {
+                    e.preventDefault(); // Prevent navigation when clicking size buttons
+                    console.log(`Add to cart: ${item.name} - ${size}`);
+                }}
+                >
                 {size}
-                </span>
+                </button>
+
+
             ))}
             </div>
         </div>

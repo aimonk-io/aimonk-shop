@@ -5,7 +5,7 @@ import { ProductCardProps } from '@/libs/Types/Cards/Index';
 
 
 
-const ProductCard = ({ name, brand, price, mainImage, hoverImage, sizes, slug }: ProductCardProps) => {
+const ProductCard = ({slug, name, brand, price, mainImage, hoverImage, sizes }: ProductCardProps) => {
     const [isImageHovered, setIsImageHovered] = useState(false);
     const [isDescriptionHovered, setIsDescriptionHovered] = useState(false);
 
@@ -53,10 +53,12 @@ const ProductCard = ({ name, brand, price, mainImage, hoverImage, sizes, slug }:
                         <div className="flex justify-center gap-4">
                             {sizes.map((size) => (
                                 <button
+                                    // Add a add to cart function here on each size label. 
                                     key={size}
-                                    className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors"
+                                    className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors cursor-pointer hover:underline" 
                                     onClick={(e) => {
                                         e.preventDefault(); // Prevent navigation when clicking size buttons
+                                        console.log(`Add to cart: ${name} - ${size}`);
                                     }}
                                 >
                                     {size}

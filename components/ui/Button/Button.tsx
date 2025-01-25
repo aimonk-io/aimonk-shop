@@ -58,16 +58,16 @@ export const Button: React.FC<ButtonProps> = ({
 
       {/* Button Icon */}
       <div className="relative flex items-center px-3">
+
         {/* Default state icon */}
         <div className="absolute flex opacity-100 transition-opacity duration-100 group-hover:opacity-0">
           <svg
             width="18"
             height="18"
             viewBox="0 0 24 24"
-            className={`fill-black dark:fill-white ${variant !== 'dynamic' ? `fill-${getCurrentColor()}` : ''}`}
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect x="8" y="8" width="8" height="8" rx="4" />
+            <rect x="8" y="8" width="10" height="10" rx="5" />
           </svg>
         </div>
         {/* Hover state icon */}

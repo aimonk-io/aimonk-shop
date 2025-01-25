@@ -171,7 +171,7 @@ const SizeGuide: React.FC<SizeGuideProps> = ({
 
         {/* Size Guide */}
         <div>
-          <Image src={'/SizeGuide/guide-chart.jpeg'} alt={'size-guide'} width={253} height={253} />
+          <Image src={'/SizeGuide/guide-chart.jpeg'} alt={'size-guide'} width={537} height={537} />
         </div>
 
         {/* Tips */}
