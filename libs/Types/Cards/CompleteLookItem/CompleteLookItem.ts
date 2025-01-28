@@ -1,5 +1,5 @@
 export interface CompleteLookItem {
-    id: string;
+    slug: string;
     name: string;
     color: string[];
     price: number;

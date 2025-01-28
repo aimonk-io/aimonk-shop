@@ -3,11 +3,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ProductCardProps } from '@/libs/Types/Cards/Index';
 
-
-
-const ProductCard = ({slug, name, brand, price, mainImage, hoverImage, sizes }: ProductCardProps) => {
+const ProductCard = ({ slug, name, brand, price, mainImage, hoverImage, sizes, inStock, discount }: ProductCardProps) => {
     const [isImageHovered, setIsImageHovered] = useState(false);
     const [isDescriptionHovered, setIsDescriptionHovered] = useState(false);
+
+    // Calculate discounted price if discount exists
+    const discountedPrice = discount ? price - (price * (discount / 100)) : price;
+
+    function addToCartt(arg0: { id: string; name: string; price: number; discount: number | undefined; size: string; image: string; }) {
+        // throw new Error('Function not implemented.');
+        console.log(arg0);
+    }
 
     return (
         <Link href={`/products/${slug}`} className="block w-full max-w-sm">
@@ -18,6 +24,16 @@ const ProductCard = ({slug, name, brand, price, mainImage, hoverImage, sizes }: 
                     onMouseEnter={() => setIsImageHovered(true)}
                     onMouseLeave={() => setIsImageHovered(false)}
                 >
+                    {!inStock && (
+                        <div className="absolute top-0 right-0 bg-black font-['proxima-nova', 'sans-serif'] text-white text-[10px] font-bold px-2 py-1 transform uppercase z-10">
+                            Sold Out
+                        </div>
+                    )}
+                    {discount !== undefined && discount > 0 && (
+                        <div className="absolute top-0 left-0 bg-red-500 font-['proxima-nova', 'sans-serif'] text-white text-[10px] font-bold px-2 py-1 transform uppercase z-10">
+                            {discount}% OFF
+                        </div>
+                    )}
                     <Image
                         src={isImageHovered ? hoverImage : mainImage}
                         alt={name}
@@ -41,9 +57,22 @@ const ProductCard = ({slug, name, brand, price, mainImage, hoverImage, sizes }: 
                                 <h3 className="text-sm font-medium text-gray-900">{name}</h3>
                                 <p className="text-sm text-gray-500">{brand}</p>
                             </div>
-                            <p className="text-sm font-medium text-gray-900">
-                                Rs. {price.toLocaleString()}.00
-                            </p>
+                            <div className="text-right">
+                                {discount !== undefined && discount > 0 ? (
+                                    <>
+                                        <p className="text-sm font-medium text-gray-400 line-through">
+                                            Rs. {price.toLocaleString()}.00
+                                        </p>
+                                        <p className="text-sm font-medium text-red-500">
+                                            Rs. {discountedPrice.toLocaleString()}.00
+                                        </p>
+                                    </>
+                                ) : (
+                                    <p className="text-sm font-medium text-gray-900">
+                                        Rs. {price.toLocaleString()}.00
+                                    </p>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -53,12 +82,18 @@ const ProductCard = ({slug, name, brand, price, mainImage, hoverImage, sizes }: 
                         <div className="flex justify-center gap-4">
                             {sizes.map((size) => (
                                 <button
-                                    // Add a add to cart function here on each size label. 
                                     key={size}
-                                    className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors cursor-pointer hover:underline" 
+                                    className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors cursor-pointer hover:underline"
                                     onClick={(e) => {
-                                        e.preventDefault(); // Prevent navigation when clicking size buttons
-                                        console.log(`Add to cart: ${name} - ${size}`);
+                                        e.preventDefault();
+                                        addToCartt({
+                                            id: slug,
+                                            name,
+                                            price: discountedPrice,
+                                            discount,
+                                            size,
+                                            image: mainImage,
+                                        });
                                     }}
                                 >
                                     {size}

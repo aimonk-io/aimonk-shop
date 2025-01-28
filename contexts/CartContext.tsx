@@ -1,23 +1,6 @@
 "use client";
+import { CartItem, CartContextType } from '@/libs/Types/Cart/Index';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-  size: string;
-  color: string;
-}
-
-interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
-  removeFromCart: (id: string) => void;
-  updateQuantity: (id: string, delta: number) => void;
-  subtotal: number;
-}
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -28,15 +11,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
         (cartItem) =>
-          cartItem.id === item.id &&
-          cartItem.size === item.size &&
-          cartItem.color === item.color
+          cartItem.slug === item.slug &&
+          cartItem.size === item.size
       );
       const updatedCart = existingItem
         ? prevItems.map((cartItem) =>
-            cartItem.id === item.id &&
-            cartItem.size === item.size &&
-            cartItem.color === item.color
+            cartItem.slug === item.slug &&
+            cartItem.size === item.size
               ? { ...cartItem, quantity: cartItem.quantity + 1 }
               : cartItem
           )
@@ -46,14 +27,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const removeFromCart = (id: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  const removeFromCart = (slug: string) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.slug.toString() !== slug));
   };
 
-  const updateQuantity = (id: string, delta: number) => {
+  const updateQuantity = (slug: string, delta: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id
+        item.slug.toString() === slug
           ? { ...item, quantity: Math.max(1, item.quantity + delta) }
           : item
       )

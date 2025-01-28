@@ -2,7 +2,12 @@ import ProductPage from "@/components/layout/ProductPage/ProductPage";
 import { ProductCardProps } from "@/libs/Types/Cards/Index";
 
 async function getProduct(slug: string ): Promise<ProductCardProps> {
+
   // In a real app, this would be an API call
+  // const res = await fetch(`http://localhost:3000/api/products/${slug}`);
+  // const data = await res.json();
+  // console.log(data)
+
   return {
     slug: slug,
     name: '&Kin Tweed Julius Blazer',
@@ -16,7 +21,7 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
     maxUnitsPerCustomer: 2,
     completeLook: [
       {
-        id: '2',
+        slug: '2',
         name: '&Kin Speckled Boucle Walker Turtleneck',
         color: ['Black', 'White', 'Blue'],
         price: 25900,
@@ -25,7 +30,7 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
         
       },
       {
-        id: '3',
+        slug: '3',
         name: '&Kin Tweed Kylan Pleated Trouser',
         color: ['Fin', 'Black', 'Blue'],
         price: 35200,
@@ -37,7 +42,8 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
 }
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = await getProduct(params.slug);
-  console.log(product);
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
   return <ProductPage product={product} />;
 }

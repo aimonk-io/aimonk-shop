@@ -1,6 +1,4 @@
-
 "use client";
-
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState } from 'react';
@@ -8,31 +6,32 @@ import ProductGrid from '../Section/Section';
 import SizeGuide from '../SizeGuide/SizeGuide';
 import { useCart } from '@/contexts/CartContext';
 import { ShopMoreProductCardDate } from '@/Data/Cards';
-import { ProductCardProps } from '@/libs/Types/Cards/Index';
+import { ProductProps } from '@/libs/Types/Cards/Index';
 import CollapsibleSection from '../../ui/CollapsibleSection/CollapsibleSection';
 import RecommendationCard from '../Cards/RecommendationCard/RecommendationCard';
 
 
 
-const ProductPage = ({ product }: { product: ProductCardProps }) => {
+const ProductPage = ({ product }: { product: ProductProps }) => {
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '');
 
-  const handleAddToCart = () => {
+    const handleAddToCart = () => {
+    if (!selectedSize) return;
+    
     const productToAdd = {
-      id: product.slug,
+      slug: Number(product.slug),
       name: product.name,
       price: product.price,
       image: product.mainImage,
       size: selectedSize,
-      color: selectedColor
+      color: selectedColor || product.colors?.[0] || '',
+      quantity: 1,
+      maxUnitsPerCustomer: product.maxUnitsPerCustomer || 1
     };
-    console.log(productToAdd)
     addToCart(productToAdd);
   };
-
-  console.log(product)
 
   return (
     <>
@@ -120,7 +119,7 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
 
             {/* Add to Cart */}
             <button
-              className="mt-8 w-full bg-black text-white rounded-sm py-3 px-4 hover:bg-white hover:text-black disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              className="mt-8 w-full font-['proxima-nova', 'sans-serif'] bg-[#333333] text-[14px] text-white py-3 px-4 hover:bg-white hover:text-black disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors transform uppercase"
               disabled={!selectedSize}
               onClick={handleAddToCart}
             >
@@ -139,7 +138,7 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
                 <h2 className="text-lg font-medium text-gray-900">COMPLETE THE LOOK</h2>
                 <div className="mt-6 space-y-6">
                   {product.completeLook.map((item) => (
-                    <RecommendationCard key={item.id} item={item} />
+                    <RecommendationCard key={item.slug} item={item} />
                   ))}
                 </div>
               </div>
