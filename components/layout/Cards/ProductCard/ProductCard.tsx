@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ProductCardProps } from '@/libs/Types/Cards/Index';
+import { useCart } from '@/contexts/CartContext';
 
 const ProductCard = ({ slug, name, brand, price, mainImage, hoverImage, sizes, inStock, discount }: ProductCardProps) => {
+    const { addToCart } = useCart();
     const [isImageHovered, setIsImageHovered] = useState(false);
+
     const [isDescriptionHovered, setIsDescriptionHovered] = useState(false);
 
     // Calculate discounted price if discount exists
@@ -12,6 +15,17 @@ const ProductCard = ({ slug, name, brand, price, mainImage, hoverImage, sizes, i
 
     function addToCartt(arg0: { id: string; name: string; price: number; discount: number | undefined; size: string; image: string; }) {
         // throw new Error('Function not implemented.');
+        const productToAdd = {
+            slug: arg0.id,
+            name: arg0.name,
+            price: arg0.price,
+            image: arg0.image,
+            size: arg0.size,
+            color: [0],
+            quantity: 1,
+
+        }
+        addToCart(productToAdd);
         console.log(arg0);
     }
 

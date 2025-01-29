@@ -13,24 +13,25 @@ import RecommendationCard from '../Cards/RecommendationCard/RecommendationCard';
 
 
 const ProductPage = ({ product }: { product: ProductProps }) => {
-  const { addToCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState<string>('');
+  const { addToCart, setIsCartOpen } = useCart();
+  const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] || '');
   const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '');
 
-    const handleAddToCart = () => {
-    if (!selectedSize) return;
-    
-    const productToAdd = {
-      slug: Number(product.slug),
-      name: product.name,
-      price: product.price,
-      image: product.mainImage,
-      size: selectedSize,
-      color: selectedColor || product.colors?.[0] || '',
-      quantity: 1,
-      maxUnitsPerCustomer: product.maxUnitsPerCustomer || 1
-    };
-    addToCart(productToAdd);
+  const handleAddToCart = () => {
+  if (!selectedSize) return;
+  
+  const productToAdd = {
+    slug: product.slug,
+    name: product.name,
+    price: product.price,
+    image: product.mainImage,
+    size: selectedSize,
+    color: selectedColor || product.colors?.[0] || '',
+    quantity: 1,
+    maxUnitsPerCustomer: product.maxUnitsPerCustomer || 1
+  };
+  addToCart(productToAdd);
+  setIsCartOpen(true);
   };
 
   return (

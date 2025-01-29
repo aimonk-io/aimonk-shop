@@ -8,7 +8,7 @@ import useMediaQuery from "@/libs/hooks/use-media-query";
 import useScroll from "@/libs/hooks/use-scroll";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { NavBarProps } from "@/libs/Types/Navbar/Index";
-import Cart  from "../Cart/Cart";
+import { Cart }  from "../Cart/Cart";
 
 
 

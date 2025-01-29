@@ -1,7 +1,8 @@
 import ProductPage from "@/components/layout/ProductPage/ProductPage";
-import { ProductCardProps } from "@/libs/Types/Cards/Index";
+import { ProductProps } from "@/libs/Types/Cards/Index";
 
-async function getProduct(slug: string ): Promise<ProductCardProps> {
+
+async function getProduct(slug: string ): Promise<ProductProps> {
 
   // In a real app, this would be an API call
   // const res = await fetch(`http://localhost:3000/api/products/${slug}`);
@@ -27,7 +28,8 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
         price: 25900,
         image: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
         sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-        
+        discount: 10,
+        inStock: false
       },
       {
         slug: '3',
@@ -36,6 +38,8 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
         price: 35200,
         image: '/ProductCard-Images/KHM010655-211-FRONT_1512x.webp',
         sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        discount: 10,
+        inStock: false
       },
     ],
   };
