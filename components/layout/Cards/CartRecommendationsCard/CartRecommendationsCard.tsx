@@ -1,3 +1,4 @@
+import { useCart } from '@/contexts/CartContext';
 import { SuggestedItem } from '@/libs/Types/Cart/Index';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -30,6 +31,20 @@ const items: SuggestedItem[] = [
 ];
 
 export const CartRecommendationsCard: React.FC = () => {
+    const { addToCart } = useCart();
+    const handleAddToCart = (item: SuggestedItem) => {    
+        const productToAdd = {
+          slug: item.slug,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          size: 'default', // Add a default size or modify as needed
+          quantity: 1,
+        };
+        addToCart(productToAdd);
+
+    };
+
     return (
         <div className="grid grid-cols-1 gap-4 p-6">
             {items.map((item) => (
@@ -56,8 +71,11 @@ export const CartRecommendationsCard: React.FC = () => {
                             Rs. {item.price.toLocaleString('en-IN')}.00
                         </p>
 
-                        <button className="w-full py-3 bg-[#333333] text-white text-sm uppercase hover:bg-white hover:text-black transition-all duration-300 mt-3">
+                        <button className="w-full py-3 bg-[#333333] text-white text-sm uppercase hover:bg-white hover:text-black transition-all duration-300 mt-3"
+                        onClick={() => handleAddToCart(item)}
+                        >
                             Add to Cart
+                            
                         </button>
                     </div>
                 </div>
@@ -65,3 +83,4 @@ export const CartRecommendationsCard: React.FC = () => {
         </div>
     );
 };
+

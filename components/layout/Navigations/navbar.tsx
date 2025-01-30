@@ -32,7 +32,9 @@ export default function NavBar({ navLinks }: NavBarProps) {
   return (
     <>
       <div
-        className={`fixed top-0 w-full flex justify-center ${scrolled ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl" : "bg-white/0"} z-30 transition-all`}
+        // Remove the comment to get the drop back effect on the navbar but the cart functionality will not work. 
+        // className={`fixed top-0 w-full flex justify-center ${scrolled ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl" : "bg-white/0 "} z-30 transition-all`}
+        className={`fixed top-0 w-full flex justify-center ${scrolled ? "border-b border-gray-200 bg-white/70" : "bg-white/0 "} z-30 transition-all`}
       >
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between w-full px-2.5 lg:px-20 relative">
           <Link href="/" className="flex items-center font-display text-2xl">

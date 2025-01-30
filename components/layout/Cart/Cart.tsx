@@ -2,18 +2,18 @@
 import { useCart } from '@/contexts/CartContext'; // Adjust import path
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { FaShoppingBag } from 'react-icons/fa';
 import { CartRecommendationsCard } from '../Cards/CartRecommendationsCard/CartRecommendationsCard';
 
 export const Cart: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const { isCartOpen, setIsCartOpen, cartItems, updateQuantity, subtotal } = useCart(); // Now using context
   const totalItems = Array.isArray(cartItems) ? cartItems.reduce((acc, item) => acc + item.quantity, 0) : 0;
-  const handleToggleCart = () => setIsOpen(!isOpen);
+  const handleToggleCart = () => setIsCartOpen(!isCartOpen);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isCartOpen) {
       document.body.classList.add('overflow-hidden');
     } else {
       document.body.classList.remove('overflow-hidden');
@@ -22,12 +22,12 @@ export const Cart: React.FC = () => {
     return () => {
       document.body.classList.remove('overflow-hidden');
     };
-  }, [isOpen]);
+  }, [isCartOpen]);
 
   return (
     <>
       <button className="fixed right-[0px] p-3 rounded-full z-50 relative" onClick={handleToggleCart}>
-        {isOpen ? "" : <FaShoppingBag size={20} />}
+        {isCartOpen ? "" : <FaShoppingBag size={20} />}
         {totalItems > 0 && (
           <span className="absolute -top-[.04rem] -right-[0.06rem] text-black font-bold text-xs w-6 h-6 flex items-center justify-center">
             {totalItems}

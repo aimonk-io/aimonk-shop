@@ -7,14 +7,12 @@ import { useCart } from '@/contexts/CartContext';
 const ProductCard = ({ slug, name, brand, price, mainImage, hoverImage, sizes, inStock, discount }: ProductCardProps) => {
     const { addToCart } = useCart();
     const [isImageHovered, setIsImageHovered] = useState(false);
-
     const [isDescriptionHovered, setIsDescriptionHovered] = useState(false);
 
     // Calculate discounted price if discount exists
     const discountedPrice = discount ? price - (price * (discount / 100)) : price;
 
     function addToCartt(arg0: { id: string; name: string; price: number; discount: number | undefined; size: string; image: string; }) {
-        // throw new Error('Function not implemented.');
         const productToAdd = {
             slug: arg0.id,
             name: arg0.name,
@@ -23,7 +21,6 @@ const ProductCard = ({ slug, name, brand, price, mainImage, hoverImage, sizes, i
             size: arg0.size,
             color: [0],
             quantity: 1,
-
         }
         addToCart(productToAdd);
         console.log(arg0);
@@ -90,30 +87,36 @@ const ProductCard = ({ slug, name, brand, price, mainImage, hoverImage, sizes, i
                         </div>
                     </div>
 
-                    {/* Sizes */}
+                    {/* Sizes or Sold Out */}
                     <div className={`absolute w-full transition-opacity duration-300 ${isImageHovered || isDescriptionHovered ? 'opacity-100' : 'opacity-0'
                         }`}>
-                        <div className="flex justify-center gap-4">
-                            {sizes.map((size) => (
-                                <button
-                                    key={size}
-                                    className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors cursor-pointer hover:underline"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        addToCartt({
-                                            id: slug,
-                                            name,
-                                            price: discountedPrice,
-                                            discount,
-                                            size,
-                                            image: mainImage,
-                                        });
-                                    }}
-                                >
-                                    {size}
-                                </button>
-                            ))}
-                        </div>
+                        {inStock ? (
+                            <div className="flex justify-center gap-4">
+                                {sizes.map((size) => (
+                                    <button
+                                        key={size}
+                                        className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors cursor-pointer hover:underline"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            addToCartt({
+                                                id: slug,
+                                                name,
+                                                price: discountedPrice,
+                                                discount,
+                                                size,
+                                                image: mainImage,
+                                            });
+                                        }}
+                                    >
+                                        {size}
+                                    </button>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center text-sm font-bold text-red-500 transform uppercase">
+                                Sold Out
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
