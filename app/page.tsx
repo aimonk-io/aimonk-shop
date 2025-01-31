@@ -1,7 +1,9 @@
-// import ProductCard from "@/components/layout/Cards/ProductCard/ProductCard";
+"use client"
+
+import ProductCard from "@/components/layout/Cards/ProductCard/ProductCard";
 import Hero from "@/components/layout/Hero/Hero";
 import ProductGrid from "@/components/layout/Section/Section";
-// import Carousel from "@/components/ui/Carousel/Carousel";
+import Carousel from "@/components/ui/Carousel/Carousel";
 
 // Data files
 import { ProductCardDate } from "@/Data/Cards/ProductCards/ProductCards";
@@ -26,7 +28,7 @@ export default function Home() {
 
         {/* This need fixing -- It should take in a product grid componet as a child!! FIX THIS ASAP */}
         
-        {/* <Carousel autoPlay delay={5000}>
+        <Carousel delay={5000}>
             {ProductCardDate.map((card, index) => (
               <ProductCard
                 key={index}
@@ -41,7 +43,7 @@ export default function Home() {
                 discount={card.discount}
               />
             ))}
-        </Carousel> */}
+        </Carousel>
 
         <ProductGrid
           cards={ProductCardDate}

@@ -116,21 +116,7 @@ export const ProductCardDate = [
     discount: 0,
 
     slug: "/8",
-  },
-  {
-    id: "9",
-    name: "&Kin Boucle Check Nolen Coat",
-    price: 172300.0,
-    brand: "Kindling",
-    mainImage: "/ProductCard-Images/KHM010655-211-FRONT_1512x.webp",
-    hoverImage:
-      "/ProductCard-Images/MENS_WINTER_LOOKBOOK_LOOK7_SHOT_1_0945_720x.webp",
-    colors: ["Black", "White", "Blue"],
-    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-    inStock: false,
-    discount: 0,
-    slug: "/9",
-  },
+  }
 ];
 
 export const ShopMoreProductCardDate = [
