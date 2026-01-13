@@ -36,8 +36,9 @@ async function getProduct(slug: string ): Promise<ProductCardProps> {
   };
 }
 
-export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = await getProduct(params.slug);
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = await getProduct(slug);
   console.log(product);
   return <ProductPage product={product} />;
 }

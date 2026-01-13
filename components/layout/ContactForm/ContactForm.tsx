@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FormInput } from "../../ui/FormInput/FormInput";
 import { FormTextarea } from "../../ui/FormTextarea/FormTextarea";
 import { toast } from "@/libs/hooks/use-toast";
+// @ts-expect-error - React 19 compatibility issue with react-hook-form types
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";

@@ -6,7 +6,7 @@ export interface ProductDetails extends ProductCardProps {
     completeLook: {
       id: string;
       name: string;
-      color: string;
+      color: string[];
       price: number;
       image: string;
       sizes: string[];
