@@ -38,13 +38,13 @@ export default function NavBar({ navLinks }: NavBarProps) {
           <Link href="/" className="flex items-center font-display text-2xl">
             {/* <Image
               src="/aimonk-120x-logo.svg"
-              alt="Kokkivo logo"
+              alt="Antedate logo"
               width="100"
               height="60"
               className="mr-2 rounded-sm"
             /> */}
             <div className="bg-black p-[0.1rem]">
-              <h1 className="text-white font-extrabold">Kokkivo</h1>
+              <h1 className="text-white font-extrabold">Antedate</h1>
             </div>
           </Link>
           {isMobile || isTablet ? (

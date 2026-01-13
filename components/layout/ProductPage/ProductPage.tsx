@@ -16,9 +16,10 @@ import RecommendationCard from '../Cards/RecommendationCard/RecommendationCard';
 
 const ProductPage = ({ product }: { product: ProductCardProps }) => {
   const { addToCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0]);
   const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '');
 
+  
   const handleAddToCart = () => {
     const productToAdd = {
       id: product.slug,
@@ -176,7 +177,7 @@ const ProductPage = ({ product }: { product: ProductCardProps }) => {
                   <p className="py-1">Material: Leather</p>
 
                   <br />
-                  <Link href={'/products'}><span className='uppercase'>Shop All Kokkivo</span></Link>
+                  <Link href={'/products'}><span className='uppercase'>Shop All Antedate</span></Link>
                 </div>
               </CollapsibleSection>
 
